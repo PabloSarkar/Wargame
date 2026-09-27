@@ -1,0 +1,210 @@
+{
+  "_note": "Narrative events, delivered as letters. phase: march | winter. Placeholders: {captain} {employer} {enemy} {town}. See sim/event_engine.gd for condition and effect keys.",
+  "events": [
+    {
+      "id": "ambush_at_the_ford", "phase": "march", "weight": 3,
+      "title": "Ambush at the ford",
+      "text": "Scouts report enemy crossbowmen in the reeds by the ford ahead of {town}.",
+      "conditions": {"under_contract": true},
+      "choices": [
+        {"text": "Force the crossing.", "outcomes": [{"weight": 1, "text": "You fight your way across.", "effects": {"skirmish": "ambush"}}]},
+        {"text": "Take the long road around (lose time).", "outcomes": [{"weight": 1, "text": "The detour costs forage and patience.", "effects": {"florins": -120, "loyalty_all": -2}}]},
+        {"text": "Send the light horse to flush them out.", "requires": {"troop": "light_horse"}, "outcomes": [
+          {"weight": 3, "text": "The stradiots scatter them and take a few prisoners.", "effects": {"florins": 80, "xp_troop": "light_horse"}},
+          {"weight": 1, "text": "The stradiots ride into a hail of bolts.", "effects": {"soldiers_troop_pct": {"type": "light_horse", "pct": -0.25}}}
+        ]}
+      ]
+    },
+    {
+      "id": "plague_in_camp", "phase": "march", "weight": 1,
+      "title": "Fever in the camp",
+      "text": "A camp fever spreads through the tents. The physicians want money; the priests want prayers.",
+      "conditions": {},
+      "choices": [
+        {"text": "Pay the physicians (150 florins).", "requires": {"florins": 150}, "outcomes": [{"weight": 3, "text": "The fever breaks.", "effects": {"florins": -150}}, {"weight": 1, "text": "Physicians are expensive and useless.", "effects": {"florins": -150, "soldiers_all_pct": -0.05}}]},
+        {"text": "March on and trust in God.", "outcomes": [{"weight": 1, "text": "The fever takes its toll.", "effects": {"soldiers_all_pct": -0.1}}]}
+      ]
+    },
+    {
+      "id": "merchant_convoy", "phase": "march", "weight": 2,
+      "title": "A merchant convoy",
+      "text": "A Florentine merchant convoy passes your column, lightly guarded and heavily laden.",
+      "conditions": {},
+      "choices": [
+        {"text": "Offer to escort it for a fee.", "outcomes": [{"weight": 1, "text": "The merchants pay for your protection.", "effects": {"florins": 150, "trust_faction": {"faction": "florence", "amount": 5}}}]},
+        {"text": "Plunder it.", "outcomes": [{"weight": 1, "text": "Your men eat well tonight. Florence will hear of it.", "effects": {"florins": 500, "infamy": 8, "trust_faction": {"faction": "florence", "amount": -20}, "loyalty_all": 4, "plunder": true}}]},
+        {"text": "Let it pass.", "outcomes": [{"weight": 1, "text": "The convoy rolls on.", "effects": {}}]}
+      ]
+    },
+    {
+      "id": "rival_duel", "phase": "march", "weight": 1,
+      "title": "A challenge",
+      "text": "An enemy condottiere sends a herald: he challenges {captain} to single combat before the armies.",
+      "conditions": {"min_captains": 1},
+      "choices": [
+        {"text": "Accept for the honour of the company.", "outcomes": [
+          {"weight": 3, "text": "{captain} unhorses him. Songs will be sung.", "effects": {"pennants": 1, "loyalty_captain": 10}},
+          {"weight": 1, "text": "{captain} is carried from the field, badly wounded.", "effects": {"loyalty_captain": -5, "wound_captain": true}}
+        ]},
+        {"text": "Refuse. Wars are won by armies.", "outcomes": [{"weight": 1, "text": "Some of the men mutter about cowardice.", "effects": {"loyalty_captain": -8}}]}
+      ]
+    },
+    {
+      "id": "deserters_seek_service", "phase": "march", "weight": 2,
+      "title": "Deserters seek service",
+      "text": "Sixty footmen who walked away from their unpaid captain ask to join your company.",
+      "conditions": {"max_bands": 7},
+      "choices": [
+        {"text": "Take them on as a band of sword-and-buckler men.", "outcomes": [{"weight": 1, "text": "A new band joins, green but eager.", "effects": {"add_band": "swords"}}]},
+        {"text": "Men who desert once desert twice. Send them away.", "outcomes": [{"weight": 1, "text": "They leave, cursing.", "effects": {}}]}
+      ]
+    },
+    {
+      "id": "rain", "phase": "march", "weight": 2,
+      "title": "Heavy rain",
+      "text": "Days of rain turn the roads to mud. Powder and bowstrings will suffer if you fight now.",
+      "conditions": {},
+      "choices": [
+        {"text": "Press on regardless.", "outcomes": [{"weight": 1, "text": "The next battle will be fought in the wet.", "effects": {"weather": "rain"}}]},
+        {"text": "Wait for the weather to clear (costs forage).", "outcomes": [{"weight": 1, "text": "The sun returns, eventually.", "effects": {"florins": -100}}]}
+      ]
+    },
+    {
+      "id": "supervisor_suspicious", "phase": "march", "weight": 2,
+      "title": "The proveditore asks questions",
+      "text": "The {employer} proveditore riding with your company asks why your scouts met enemy riders under a flag of truce.",
+      "conditions": {"has_supervisor": true},
+      "choices": [
+        {"text": "Explain it was a prisoner exchange.", "outcomes": [
+          {"weight": 2, "text": "He writes it down, and seems satisfied.", "effects": {}},
+          {"weight": 1, "text": "He writes it down, and does not seem satisfied.", "effects": {"trust": -10}}
+        ]},
+        {"text": "Bribe him (200 florins).", "requires": {"florins": 200}, "outcomes": [
+          {"weight": 3, "text": "His report will be glowing.", "effects": {"florins": -200, "trust": 5}},
+          {"weight": 1, "text": "He takes the money and reports the bribe.", "effects": {"florins": -200, "trust": -25, "infamy": 5}}
+        ]}
+      ]
+    },
+    {
+      "id": "carmagnola_warning", "phase": "march", "weight": 1, "once": true,
+      "title": "Remember Carmagnola",
+      "text": "An old friend writes: 'Venice invited Carmagnola to dine at the Doge's palace in 1432. They beheaded him between the columns. Do not give them cause.'",
+      "conditions": {"employer": "venice", "min_infamy": 15},
+      "choices": [
+        {"text": "Burn the letter.", "outcomes": [{"weight": 1, "text": "You watch it curl in the fire.", "effects": {}}]},
+        {"text": "Send a gift to the Council of Ten (300 florins).", "requires": {"florins": 300}, "outcomes": [{"weight": 1, "text": "The Ten acknowledge your gift.", "effects": {"florins": -300, "trust": 15, "infamy": -5}}]}
+      ]
+    },
+    {
+      "id": "village_tribute", "phase": "march", "weight": 2,
+      "title": "The village of San Pietro",
+      "text": "Your column camps near a prosperous village. The headman offers a small purse to be left alone.",
+      "conditions": {},
+      "choices": [
+        {"text": "Take the purse and move on.", "outcomes": [{"weight": 1, "text": "Honest extortion.", "effects": {"florins": 120, "infamy": 1}}]},
+        {"text": "Take the purse and the village.", "requires": {"no_clause": "no_plunder"}, "outcomes": [{"weight": 1, "text": "The men are pleased. The chroniclers are not.", "effects": {"florins": 350, "infamy": 6, "loyalty_all": 3, "plunder": true}}]},
+        {"text": "Refuse the purse. Pay for your forage.", "outcomes": [{"weight": 1, "text": "Word spreads of a company that pays its way.", "effects": {"florins": -50, "infamy": -3}}]}
+      ]
+    },
+    {
+      "id": "gunpowder_merchant", "phase": "march", "weight": 1, "once": true,
+      "title": "A German gunsmith",
+      "text": "A Nuremberg gunsmith offers to train a band of your men in the handgun, years before it is common in Italy.",
+      "conditions": {"min_year": 1444, "max_year": 1447},
+      "choices": [
+        {"text": "Pay him (400 florins).", "requires": {"florins": 400}, "outcomes": [{"weight": 1, "text": "Handgunners can now be recruited.", "effects": {"florins": -400, "unlock": "handguns"}}]},
+        {"text": "Noisy toys. Send him away.", "outcomes": [{"weight": 1, "text": "He heads for Milan instead.", "effects": {}}]}
+      ]
+    },
+    {
+      "id": "captain_feud", "phase": "winter", "weight": 3,
+      "title": "Bad blood",
+      "text": "{captain} and another of your captains came to blows over a woman, a horse, or a debt. Accounts differ.",
+      "conditions": {"min_captains": 2},
+      "choices": [
+        {"text": "Side with {captain}.", "outcomes": [{"weight": 1, "text": "{captain} is grateful. The other is not.", "effects": {"loyalty_captain": 10, "loyalty_other": -15}}]},
+        {"text": "Fine them both (and keep the money).", "outcomes": [{"weight": 1, "text": "Neither is happy, but the camp is quiet.", "effects": {"florins": 60, "loyalty_all": -5}}]},
+        {"text": "Pay them both off (200 florins).", "requires": {"florins": 200}, "outcomes": [{"weight": 1, "text": "Money heals most wounds.", "effects": {"florins": -200, "loyalty_all": 3}}]}
+      ]
+    },
+    {
+      "id": "winter_hunger", "phase": "winter", "weight": 2,
+      "title": "A lean winter",
+      "text": "Grain is dear in {town} this winter. The quartermaster needs more money or the men go hungry.",
+      "conditions": {},
+      "choices": [
+        {"text": "Buy grain (200 florins).", "requires": {"florins": 200}, "outcomes": [{"weight": 1, "text": "Bellies full.", "effects": {"florins": -200}}]},
+        {"text": "Tighten belts.", "outcomes": [{"weight": 1, "text": "The men grumble, and some slip away.", "effects": {"loyalty_all": -5, "soldiers_all_pct": -0.05}}]}
+      ]
+    },
+    {
+      "id": "assassin", "phase": "winter", "weight": 3,
+      "title": "Poison in the wine",
+      "text": "A servant is caught with a vial of something that is not wine. Your enemies are many.",
+      "conditions": {"min_infamy": 40},
+      "choices": [
+        {"text": "Hang him and double the guard.", "outcomes": [
+          {"weight": 3, "text": "You sleep with a dagger under your pillow.", "effects": {"florins": -100}},
+          {"weight": 1, "text": "The second assassin was already inside.", "effects": {"wound_commander": true}}
+        ]},
+        {"text": "Make him talk.", "outcomes": [
+          {"weight": 1, "text": "He names a former employer. Useful.", "effects": {"infamy": -5}},
+          {"weight": 1, "text": "He names nobody and dies.", "effects": {}}
+        ]}
+      ]
+    },
+    {
+      "id": "veteran_captain", "phase": "winter", "weight": 2,
+      "title": "An old soldier",
+      "text": "A grey-bearded captain who served under Braccio da Montone asks for a place in your company.",
+      "conditions": {"max_captains": 3},
+      "choices": [
+        {"text": "Take him on (150 florins signing gift).", "requires": {"florins": 150}, "outcomes": [{"weight": 1, "text": "A new captain joins the company.", "effects": {"florins": -150, "add_captain": "old_soldier"}}]},
+        {"text": "No room at the table.", "outcomes": [{"weight": 1, "text": "He wishes you luck.", "effects": {}}]}
+      ]
+    },
+    {
+      "id": "sforza_letter", "phase": "winter", "weight": 1, "once": true,
+      "title": "A letter from Francesco Sforza",
+      "text": "The great condottiere writes to you as one professional to another: 'Our employers think they own us. They rent us.'",
+      "conditions": {"min_pennants": 8},
+      "choices": [
+        {"text": "Reply warmly.", "outcomes": [{"weight": 1, "text": "A useful friendship.", "effects": {"trust_faction": {"faction": "milan", "amount": 10}}}]},
+        {"text": "Forward it to your employer as proof of loyalty.", "requires": {"under_contract": true}, "outcomes": [{"weight": 1, "text": "Your employer is impressed. Sforza is not.", "effects": {"trust": 15, "trust_faction": {"faction": "milan", "amount": -15}}}]}
+      ]
+    },
+    {
+      "id": "pay_mutiny", "phase": "winter", "weight": 4,
+      "title": "The men want their pay",
+      "text": "A delegation of sergeants stands in your doorway. They have not been paid, and they have pikes.",
+      "conditions": {"min_arrears": 1},
+      "choices": [
+        {"text": "Promise double pay in spring.", "outcomes": [
+          {"weight": 1, "text": "They believe you. For now.", "effects": {"loyalty_all": -3}},
+          {"weight": 1, "text": "They do not believe you.", "effects": {"remove_band": true}}
+        ]},
+        {"text": "Sell the silver plate (raise 250 florins).", "outcomes": [{"weight": 1, "text": "You eat off pewter this winter.", "effects": {"florins": 250}}]}
+      ]
+    },
+    {
+      "id": "papal_indulgence", "phase": "winter", "weight": 1,
+      "title": "An indulgence",
+      "text": "A friar offers the company a papal indulgence for its sins, for a price.",
+      "conditions": {"min_infamy": 10},
+      "choices": [
+        {"text": "Buy it (250 florins).", "requires": {"florins": 250}, "outcomes": [{"weight": 1, "text": "Your sins are lighter; so is your purse.", "effects": {"florins": -250, "infamy": -10, "trust_faction": {"faction": "papal", "amount": 5}}}]},
+        {"text": "Your sins are your own.", "outcomes": [{"weight": 1, "text": "The friar moves on.", "effects": {}}]}
+      ]
+    },
+    {
+      "id": "horse_fair", "phase": "winter", "weight": 1,
+      "title": "The horse fair at {town}",
+      "text": "A horse fair offers remounts at good prices.",
+      "conditions": {"has_troop": "lances"},
+      "choices": [
+        {"text": "Buy remounts (180 florins).", "requires": {"florins": 180}, "outcomes": [{"weight": 1, "text": "Your lances are well horsed.", "effects": {"florins": -180, "xp_troop": "lances"}}]},
+        {"text": "Not this year.", "outcomes": [{"weight": 1, "text": "", "effects": {}}]}
+      ]
+    }
+  ]
+}

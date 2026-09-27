@@ -1,0 +1,53 @@
+{
+  "_note": "Costs in florins. Placeholder values for tuning (see design doc: Company management).",
+  "lances": {
+    "name": "Lances", "long_name": "Lances (men-at-arms)", "role": "Heavy shock cavalry",
+    "hire": 600, "upkeep": 300, "soldiers": 40,
+    "attack": 15, "defence": 8, "armour": 9, "speed": 34, "stamina": 70, "morale": 80,
+    "range": 0, "ranged_attack": 0, "cavalry": true, "field": true, "unlock_year": 1440,
+    "strong_vs": ["crossbows", "swords"], "weak_vs": ["pikes", "handguns"]
+  },
+  "light_horse": {
+    "name": "Stradiots", "long_name": "Light horse (stradiots)", "role": "Scouting, pursuit, raids",
+    "hire": 250, "upkeep": 120, "soldiers": 50,
+    "attack": 8, "defence": 5, "armour": 2, "speed": 48, "stamina": 90, "morale": 60,
+    "range": 0, "ranged_attack": 0, "cavalry": true, "field": true, "unlock_year": 1440,
+    "strong_vs": ["routing", "siege_train"], "weak_vs": ["lances", "pikes"]
+  },
+  "crossbows": {
+    "name": "Crossbows", "long_name": "Crossbows with pavises", "role": "Ranged, holds ground",
+    "hire": 200, "upkeep": 90, "soldiers": 60,
+    "attack": 5, "defence": 6, "armour": 4, "speed": 16, "stamina": 80, "morale": 60,
+    "range": 170, "ranged_attack": 9, "pavise": 6, "cavalry": false, "field": true, "unlock_year": 1440,
+    "strong_vs": ["pikes"], "weak_vs": ["lances", "light_horse"]
+  },
+  "pikes": {
+    "name": "Pikemen", "long_name": "Pikemen", "role": "Anti-cavalry wall",
+    "hire": 180, "upkeep": 80, "soldiers": 80,
+    "attack": 7, "defence": 10, "armour": 3, "speed": 14, "stamina": 80, "morale": 70,
+    "range": 0, "ranged_attack": 0, "cavalry": false, "field": true, "unlock_year": 1440,
+    "strong_vs": ["lances", "light_horse"], "weak_vs": ["crossbows", "handguns", "swords"]
+  },
+  "swords": {
+    "name": "Rotelle", "long_name": "Sword-and-buckler", "role": "Assault infantry",
+    "hire": 150, "upkeep": 70, "soldiers": 70,
+    "attack": 10, "defence": 7, "armour": 3, "speed": 18, "stamina": 85, "morale": 65,
+    "range": 0, "ranged_attack": 0, "cavalry": false, "field": true, "unlock_year": 1440,
+    "strong_vs": ["pikes"], "weak_vs": ["lances"]
+  },
+  "handguns": {
+    "name": "Handgunners", "long_name": "Handgunners", "role": "Armour-piercing volleys",
+    "hire": 260, "upkeep": 110, "soldiers": 50,
+    "attack": 4, "defence": 5, "armour": 2, "speed": 15, "stamina": 75, "morale": 55,
+    "range": 130, "ranged_attack": 13, "armour_piercing": true, "rain_penalty": 0.25,
+    "cavalry": false, "field": true, "unlock_year": 1448,
+    "strong_vs": ["lances"], "weak_vs": ["lances", "light_horse"]
+  },
+  "siege_train": {
+    "name": "Siege train", "long_name": "Siege train (bombards)", "role": "Required for siege contracts",
+    "hire": 800, "upkeep": 250, "soldiers": 30,
+    "attack": 2, "defence": 2, "armour": 2, "speed": 6, "stamina": 50, "morale": 40,
+    "range": 0, "ranged_attack": 0, "cavalry": false, "field": false, "unlock_year": 1440,
+    "strong_vs": ["walls"], "weak_vs": ["lances", "light_horse", "swords", "pikes"]
+  }
+}

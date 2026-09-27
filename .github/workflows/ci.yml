@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GODOT_VERSION: "4.3"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot
+        run: |
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" godot
+      - name: Import project
+        run: ./godot --headless --path . --import || true
+      - name: Unit and simulation tests
+        run: ./godot --headless --path . --script res://tests/run_tests.gd
+      - name: Balance smoke run
+        run: |
+          ./godot --headless --path . --script res://tools/balance_harness.gd -- --runs 5 --seed 1 --out balance_out
+          python3 tools/analyze_balance.py balance_out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: balance
+          path: balance_out/

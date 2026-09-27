@@ -1,0 +1,15 @@
+{
+  "_note": "Captain traits. Effects are read by sim code by key.",
+  "greedy":      {"name": "Greedy",      "text": "More loot; loyalty drops fast when unpaid.", "plunder_mult": 1.5, "unpaid_loyalty_mult": 2.0},
+  "pious":       {"name": "Pious",       "text": "Better Papal contracts; hates betrayal.", "papal_pay_mult": 1.15, "betrayal_loyalty": -15},
+  "old_soldier": {"name": "Old Soldier", "text": "Steadies morale; may retire.", "morale_bonus": 15, "retire_chance": 0.08},
+  "brave":       {"name": "Brave",       "text": "Hits harder, but risks his neck.", "attack_mult": 1.15, "death_chance_mult": 2.0},
+  "cautious":    {"name": "Cautious",    "text": "His band takes fewer losses when it routs.", "rout_loss_mult": 0.5},
+  "schemer":     {"name": "Schemer",     "text": "+15 Cunning for sham battles; less loyal.", "cunning_bonus": 15, "loyalty_drift": -2},
+  "beloved":     {"name": "Beloved",     "text": "His band never deserts while he lives.", "no_desertion": true},
+  "drunkard":    {"name": "Drunkard",    "text": "Slow to react in battle; cheap to keep.", "speed_mult": 0.85, "loyalty_drift": 1},
+  "horseman":    {"name": "Horseman",    "text": "Cavalry under him are faster.", "cavalry_speed_mult": 1.15},
+  "engineer":    {"name": "Engineer",    "text": "Bombards hit harder in sieges.", "siege_mult": 1.5},
+  "loyalist":    {"name": "Loyalist",    "text": "Loyalty never drops below 40.", "loyalty_floor": 40},
+  "vainglorious":{"name": "Vainglorious","text": "Loves a famous victory; sulks after a defeat.", "victory_loyalty": 10, "defeat_loyalty": -10}
+}
